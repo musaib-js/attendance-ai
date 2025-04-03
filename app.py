@@ -9,17 +9,19 @@ from request_validators import register_models
 import logging
 from sqlalchemy import text
 import re
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 app = Flask(__name__)
+
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = (
-#     "postgresql://user:password@db:5432/attendance_db"
-# )
-
 
 app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "postgresql://user:ExFbQxoTtnIc29Zivmm36xavpof3FBq2@dpg-cvn1vvpr0fns738fqe8g-a.singapore-postgres.render.com/attendance_db_jujj"
+    str(os.getenv("PSQL_URL"))
 )
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
