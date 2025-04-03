@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  attendace-ai:
+    build: 
+      context: .
+    container_name: attendace-ai
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db
+    networks:
+      - flask_network
+
+  db:
+    image: "postgres:alpine"
+    container_name: postgresdb
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: attendance_db
+    ports:
+      - "5432"
+    networks:
+      - flask_network
+
+networks:
+  flask_network:
+    driver: bridge
