@@ -129,7 +129,7 @@ class AttendanceUpdate(Resource):
             return {"error": str(e)}, 500
 
 
-def clean_sql_query(sql_query):
+def clean_response(sql_query):
     """ Remove Markdown-style code blocks from SQL queries. """
     return re.sub(r"```(sql)?\n|\n```", "", sql_query).strip()
 
@@ -148,7 +148,7 @@ class AttendanceSummary(Resource):
             
             logging.info(f"Generated SQL Query: {sql_query}")
             
-            sql_query = clean_sql_query(sql_query)
+            sql_query = clean_response(sql_query)
             
             if not sql_query:
                 return {"error": "Failed to generate SQL query"}, 400
@@ -161,7 +161,7 @@ class AttendanceSummary(Resource):
             json_data = [dict(row._mapping) for row in result]
 
             summary = summarise_attendance_data(question, json_data)
-            
+            summary = clean_response(summary)
             logging.info(f"Generated Summary: {summary}")
             
             if not summary:
