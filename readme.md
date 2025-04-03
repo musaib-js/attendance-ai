@@ -1,5 +1,7 @@
 # AI Enhanced Attendance Operations Platform
 
+### Loom Video: https://www.loom.com/share/5761d0d44ad24df98a1fea708cd48aa1
+
 ### Architecture Diagram
 
 ![Architecture](./architecture.png)
