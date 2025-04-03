@@ -273,7 +273,11 @@ class AttendanceDataView(Resource):
                         "role": row.employee.role,
                         "team_id": row.employee.team_id,
                         "is_manager": row.employee.is_manager,
-                    }
+                    },
+                    "team": {
+                        "id": row.employee.team.id,
+                        "team_name": row.employee.team.team_name,
+                    },
                 } for row in result
             ]
             
@@ -286,9 +290,9 @@ class AttendanceDataView(Resource):
 if __name__ == "__main__":
     with app.app_context():
 
-        db.drop_all()
+        # db.drop_all()
 
-        db.create_all()
+        # db.create_all()
         
         # Create sample data like two teams, 10 employees
         team1 = Team(team_name="Team Alpha")
