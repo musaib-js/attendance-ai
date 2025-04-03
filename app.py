@@ -232,6 +232,57 @@ class CreateEmployee(Resource):
             return {"error": str(e)}, 500
 
 
+@api.route("/api/get-attendance-data")
+class AttendanceDataView(Resource):
+    def get(self):
+        try:
+            filters = request.args 
+            
+            date = filters.get("date")
+            employee_id = filters.get("employee_id")
+            team_id = filters.get("team_id")
+            work_mode = filters.get("work_mode")
+            
+            query = db.session.query(Attendance).join(Employee).join(Team)
+            
+            if date:
+                query = query.filter(Attendance.date == date)
+            if employee_id:
+                query = query.filter(Employee.id == employee_id)
+            if team_id:
+                query = query.filter(Team.id == team_id)
+            if work_mode:
+                query = query.filter(Attendance.work_mode == work_mode)
+            
+            result = query.all()
+            
+            if not result:
+                return {"error": "No data found"}, 404
+            
+            json_data = [
+                {
+                    "id": row.id,
+                    "date": row.date.strftime("%Y-%m-%d"), 
+                    "clock_in_time": row.clock_in_time.strftime("%H:%M:%S"),
+                    "clock_out_time": row.clock_out_time.strftime("%H:%M:%S") if row.clock_out_time else None,
+                    "employee_id": row.employee_id,
+                    "work_mode": row.work_mode,
+                    "employee": {
+                        "id": row.employee.id,
+                        "name": row.employee.name,
+                        "role": row.employee.role,
+                        "team_id": row.employee.team_id,
+                        "is_manager": row.employee.is_manager,
+                    }
+                } for row in result
+            ]
+            
+            return {"data": json_data}, 200
+            
+        except Exception as e:
+            return {"error": str(e)}, 500
+        
+        
 if __name__ == "__main__":
     with app.app_context():
 

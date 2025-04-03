@@ -9,7 +9,9 @@ class Attendance(db.Model):
     clock_out_time = db.Column(db.Time, nullable=True)
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
     work_mode = db.Column(db.String(10), nullable=False)  # 'WFH' or 'WFO'
-
+    
+    employee = db.relationship("Employee", backref="attendances")
+    
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
