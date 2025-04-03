@@ -1,9 +1,10 @@
 # AI Enhanced Attendance Operations Platform
 
 ### Loom Video: https://www.loom.com/share/5761d0d44ad24df98a1fea708cd48aa1
+### Retool Link: https://musaaib.retool.com/apps/48ad0db6-0fe5-11f0-9f60-27b79855bd29/Attendance%20Portal/page1 
+#### Disclaimer: I've used the free tier of retool to build the YU, so couldn't make the app public. Also, the backend is hosted on Render along with the DB, so they're a little slow.
 
 ### Architecture Diagram
-
 ![Architecture](./architecture.png)
 
 ### Technologies Used
