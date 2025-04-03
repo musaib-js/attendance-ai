@@ -5,9 +5,9 @@ class AttendanceUser(HttpUser):
 
     @task
     def clock_in(self):
-        self.client.post("/api/clock-in", json={"employee_id": 1, "work_mode": "WFO"})
+        self.client.post("/api/clock-in", json={"employee_id": 7, "work_mode": "WFO"})
 
     @task
     def clock_out(self):
-        self.client.put("/api/clock-out", json={"employee_id": 1})
+        self.client.put("/api/clock-out", json={"employee_id": 7})
 
